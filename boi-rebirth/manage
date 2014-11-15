@@ -25,6 +25,8 @@ if OS.windows?
   key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders'
   docs = Win32::Registry::HKEY_CURRENT_USER.open(key) { |reg| reg['Personal'] }
   active = docs + '/My Games/Binding of Isaac Rebirth'
+elsif OS.mac?
+  active = ENV['HOME'] + '/Library/Application Support/Binding of Isaac Rebirth'
 else
   STDERR.puts 'Unsupported OS'
   exit 1
