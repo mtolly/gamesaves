@@ -13,9 +13,11 @@ end
 stored = File.dirname(__FILE__) + '/data'
 
 if ARGV == ['load']
+  FileUtils.rm_rf "#{active}/."
   FileUtils.cp_r "#{stored}/.", active
 elsif ARGV == ['save']
   FileUtils.mkdir_p stored
+  FileUtils.rm_rf "#{stored}/."
   FileUtils.cp_r "#{active}/.", stored
   FileUtils.rm "#{stored}/log.txt"
 else
