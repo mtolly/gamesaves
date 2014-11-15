@@ -1,32 +1,11 @@
 #!/usr/bin/env ruby
 
-require 'fileutils'
-
-module OS
-  def OS.windows?
-    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
-  end
-
-  def OS.mac?
-   (/darwin/ =~ RUBY_PLATFORM) != nil
-  end
-
-  def OS.unix?
-    !OS.windows?
-  end
-
-  def OS.linux?
-    OS.unix? and not OS.mac?
-  end
-end
+require '../common'
 
 if OS.windows?
-  require 'win32/registry'
-  key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders'
-  docs = Win32::Registry::HKEY_CURRENT_USER.open(key) { |reg| reg['Personal'] }
-  active = docs + '/My Games/Binding of Isaac Rebirth'
+  active = Windows.documents + '/My Games/Binding of Isaac Rebirth'
 elsif OS.mac?
-  active = ENV['HOME'] + '/Library/Application Support/Binding of Isaac Rebirth'
+  active = Mac.appSupport + '/Binding of Isaac Rebirth'
 else
   STDERR.puts 'Unsupported OS'
   exit 1
