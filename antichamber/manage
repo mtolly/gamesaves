@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require '../common'
+require_relative '../common'
 
 if OS.windows?
   active = Windows.steamapps + '/common/Antichamber/Binaries/Win32/SavedGame.bin'
