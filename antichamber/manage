@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+module OS
+  def OS.windows?
+    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.mac?
+   (/darwin/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.unix?
+    !OS.windows?
+  end
+
+  def OS.linux?
+    OS.unix? and not OS.mac?
+  end
+end
+
+if OS.windows?
+  active = ENV['ProgramFiles(x86)'] + '/Steam/steamapps/common/Antichamber/Binaries/Win32/SavedGame.bin'
+else
+  STDERR.puts 'Unsupported OS'
+  exit 1
+end
+stored = File.dirname(__FILE__) + '/SavedGame.bin'
+
+if ARGV == ['load']
+  FileUtils.cp stored, active
+elsif ARGV == ['save']
+  FileUtils.cp active, stored
+else
+  STDERR.puts "Usage: #{$0} (load|save)"
+  exit 1
+end
