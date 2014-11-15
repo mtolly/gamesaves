@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+module OS
+  def OS.windows?
+    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.mac?
+   (/darwin/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.unix?
+    !OS.windows?
+  end
+
+  def OS.linux?
+    OS.unix? and not OS.mac?
+  end
+end
+
+if OS.windows?
+  require 'win32/registry'
+  key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders'
+  docs = Win32::Registry::HKEY_CURRENT_USER.open(key) { |reg| reg['Personal'] }
+  active = docs + '/My Games/Binding of Isaac Rebirth'
+else
+  STDERR.puts 'Unsupported OS'
+  exit 1
+end
+stored = File.dirname(__FILE__) + '/data'
+
+if ARGV == ['load']
+  FileUtils.cp_r "#{stored}/.", active
+elsif ARGV == ['save']
+  FileUtils.mkdir_p stored
+  FileUtils.cp_r "#{active}/.", stored
+  FileUtils.rm "#{stored}/log.txt"
+else
+  STDERR.puts "Usage: #{$0} (load|save)"
+  exit 1
+end
