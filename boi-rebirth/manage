@@ -21,7 +21,7 @@ module BOIRebirth
 
   def self.save
     super
-    FileUtils.rm "#{self.stored}/log.txt"
+    FileUtils.rm_f "#{self.stored}/log.txt"
   end
 end
 BOIRebirth.run
