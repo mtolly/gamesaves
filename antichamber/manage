@@ -2,21 +2,21 @@
 
 require_relative '../common'
 
-if OS.windows?
-  active = Windows.steamapps + '/common/Antichamber/Binaries/Win32/SavedGame.bin'
-elsif OS.mac?
-  active = Mac.appSupport + '/Unreal Tournament 3/SavedGame.bin'
-else
-  STDERR.puts 'Unsupported OS'
-  exit 1
-end
-stored = File.dirname(__FILE__) + '/SavedGame.bin'
+module Antichamber
+  extend GameSave
 
-if ARGV == ['load']
-  FileUtils.cp stored, active
-elsif ARGV == ['save']
-  FileUtils.cp active, stored
-else
-  STDERR.puts "Usage: #{$0} (load|save)"
-  exit 1
+  def self.active
+    if OS.windows?
+      Windows.steamapps + '/common/Antichamber/Binaries/Win32/SavedGame.bin'
+    elsif OS.mac?
+      Mac.appSupport + '/Unreal Tournament 3/SavedGame.bin'
+    else
+      raise 'Unsupported OS'
+    end
+  end
+
+  def self.stored
+    File.dirname(__FILE__) + '/SavedGame.bin'
+  end
 end
+Antichamber.run

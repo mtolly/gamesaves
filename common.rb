@@ -46,3 +46,40 @@ module Mac
     Mac.home + '/Library/Application Support'
   end
 end
+
+module GameSave
+  def run
+    if ARGV == ['load']
+      self.load
+    elsif ARGV == ['save']
+      self.save
+    else
+      STDERR.puts "Usage: #{$0} (load|save)"
+      exit 1
+    end
+  end
+
+  def mapping
+    {self.active => self.stored}
+  end
+
+  def load
+    mapping.each_pair { |game, git| self.copySave(git, game) }
+  end
+
+  def save
+    mapping.each_pair { |game, git| self.copySave(game, git) }
+  end
+
+  def copySave(from, to)
+    if File.file? from
+      FileUtils.cp from, to
+    elsif File.directory? from
+      FileUtils.rm_rf to
+      FileUtils.mkdir to
+      FileUtils.cp_r "#{from}/.", to
+    else
+      raise "Couldn't find file/dir #{from}"
+    end
+  end
+end

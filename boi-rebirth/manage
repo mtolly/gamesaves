@@ -2,25 +2,26 @@
 
 require_relative '../common'
 
-if OS.windows?
-  active = Windows.documents + '/My Games/Binding of Isaac Rebirth'
-elsif OS.mac?
-  active = Mac.appSupport + '/Binding of Isaac Rebirth'
-else
-  STDERR.puts 'Unsupported OS'
-  exit 1
-end
-stored = File.dirname(__FILE__) + '/data'
+module BOIRebirth
+  extend GameSave
 
-if ARGV == ['load']
-  FileUtils.rm_rf "#{active}/."
-  FileUtils.cp_r "#{stored}/.", active
-elsif ARGV == ['save']
-  FileUtils.mkdir_p stored
-  FileUtils.rm_rf "#{stored}/."
-  FileUtils.cp_r "#{active}/.", stored
-  FileUtils.rm "#{stored}/log.txt"
-else
-  STDERR.puts "Usage: #{$0} (load|save)"
-  exit 1
+  def self.active
+    if OS.windows?
+      Windows.documents + '/My Games/Binding of Isaac Rebirth'
+    elsif OS.mac?
+      Mac.appSupport + '/Binding of Isaac Rebirth'
+    else
+      raise 'Unsupported OS'
+    end
+  end
+
+  def self.stored
+    File.dirname(__FILE__) + '/data'
+  end
+
+  def self.save
+    super
+    FileUtils.rm "#{self.stored}/log.txt"
+  end
 end
+BOIRebirth.run
