@@ -53,8 +53,12 @@ module GameSave
       self.load
     elsif ARGV == ['save']
       self.save
+    elsif ARGV == ['load', '-f']
+      self.load(true)
+    elsif ARGV == ['save', '-f']
+      self.save(true)
     else
-      STDERR.puts "Usage: #{$0} (load|save)"
+      STDERR.puts "Usage: #{$0} (load|save) [-f]"
       exit 1
     end
   end
@@ -63,11 +67,19 @@ module GameSave
     {self.active => self.stored}
   end
 
-  def load
+  def load(force = false)
+    if newer == :game and not force
+      STDERR.puts "Error: game data is newer than git data."
+      STDERR.puts "To force a load: #{$0} load -f"
+    end
     mapping.each_pair { |game, git| self.copySave(git, game) }
   end
 
-  def save
+  def save(force = false)
+    if newer == :git and not force
+      STDERR.puts "Error: git data is newer than game data."
+      STDERR.puts "To force a save: #{$0} save -f"
+    end
     mapping.each_pair { |game, git| self.copySave(game, git) }
   end
 
@@ -80,6 +92,22 @@ module GameSave
       FileUtils.cp_r "#{from}/.", to
     else
       raise "Couldn't find file/dir #{from}"
+    end
+  end
+
+  def newer
+    tally = []
+    mapping.each_pair do |game, git|
+      if File.mtime(game) < File.mtime(git)
+        tally << :git
+      elsif File.mtime(game) > File.mtime(git)
+        tally << :game
+      end
+    end
+    if tally.uniq.length == 1
+      tally[0]
+    else
+      nil
     end
   end
 end
