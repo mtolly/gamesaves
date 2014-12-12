@@ -6,10 +6,13 @@ module BOIRebirth
   extend GameSave
 
   def self.active
-    if OS.windows?
-      Windows.documents + '/My Games/Binding of Isaac Rebirth'
-    elsif OS.mac?
-      Mac.appSupport + '/Binding of Isaac Rebirth'
+    # TODO: fix windows support (probably moved with v1.032)
+    # is it the same as mac below?
+    
+    # if OS.windows?
+    #   Windows.documents + '/My Games/Binding of Isaac Rebirth'
+    if OS.mac?
+      Mac.steamUserData + '/250900'
     else
       raise 'Unsupported OS'
     end
@@ -19,7 +22,7 @@ module BOIRebirth
     File.dirname(__FILE__) + '/data'
   end
 
-  def self.save
+  def self.save(force = true)
     super
     FileUtils.rm_f "#{self.stored}/log.txt"
   end

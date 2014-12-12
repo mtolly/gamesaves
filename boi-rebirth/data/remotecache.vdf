@@ -1,0 +1,51 @@
+"250900"
+{
+	"persistentgamedata1.dat"
+	{
+		"root"		"0"
+		"size"		"4096"
+		"localtime"		"1418343022"
+		"time"		"1418343022"
+		"remotetime"		"1415925496"
+		"sha"		"5b0cda2d8ef11ca36012dfbea3a1b5bd0569e08c"
+		"syncstate"		"3"
+		"persiststate"		"0"
+		"platformstosync2"		"-1"
+	}
+	"persistentgamedata2.dat"
+	{
+		"root"		"0"
+		"size"		"1259"
+		"localtime"		"1418177962"
+		"time"		"1418177961"
+		"remotetime"		"1415925447"
+		"sha"		"ec2c5857539d4f693a3dceb26dc7ea87bb041b37"
+		"syncstate"		"3"
+		"persiststate"		"0"
+		"platformstosync2"		"-1"
+	}
+	"persistentgamedata3.dat"
+	{
+		"root"		"0"
+		"size"		"1259"
+		"localtime"		"1418177962"
+		"time"		"1418177961"
+		"remotetime"		"1415925447"
+		"sha"		"e5c035f2b3e1e3bb548ec7aae9232076279f7f09"
+		"syncstate"		"3"
+		"persiststate"		"0"
+		"platformstosync2"		"-1"
+	}
+	"gamestate1.dat"
+	{
+		"root"		"0"
+		"size"		"1048576"
+		"localtime"		"1418343022"
+		"time"		"1418343022"
+		"remotetime"		"1415924783"
+		"sha"		"28c371543114471fc5ddda49c54594cfe27022f7"
+		"syncstate"		"3"
+		"persiststate"		"0"
+		"platformstosync2"		"-1"
+	}
+}

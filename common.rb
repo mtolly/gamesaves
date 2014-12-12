@@ -2,6 +2,8 @@
 
 require 'fileutils'
 
+STEAM_ID_NUMBER = "39061178"
+
 # from http://stackoverflow.com/a/171011
 module OS
   def OS.windows?
@@ -44,6 +46,10 @@ module Mac
 
   def Mac.appSupport
     Mac.home + '/Library/Application Support'
+  end
+
+  def Mac.steamUserData
+    Mac.appSupport + "/Steam/userdata/#{STEAM_ID_NUMBER}"
   end
 end
 
