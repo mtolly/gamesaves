@@ -104,6 +104,7 @@ module GameSave
   def newer
     tally = []
     mapping.each_pair do |game, git|
+      next unless File.exists?(game) && File.exists?(git)
       if File.mtime(game) < File.mtime(git)
         tally << :git
       elsif File.mtime(game) > File.mtime(git)

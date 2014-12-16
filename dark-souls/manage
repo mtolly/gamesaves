@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require_relative '../common'
+
+GFWL_NAME = "nykst"
+
+module DarkSouls
+  extend GameSave
+
+  def self.active
+    if OS.windows?
+      Windows.documents + '/NBGI/DarkSouls/' + GFWL_NAME + '/draks0005.sl2'
+    else
+      raise 'Unsupported OS'
+    end
+  end
+
+  def self.stored
+    File.dirname(__FILE__) + '/draks0005.sl2'
+  end
+end
+DarkSouls.run
