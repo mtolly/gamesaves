@@ -4,10 +4,10 @@
 	{
 		"root"		"0"
 		"size"		"1263"
-		"localtime"		"1421904518"
-		"time"		"1421904518"
-		"remotetime"		"1421904518"
-		"sha"		"ade22386a6aa88c7c1f63e5619c535cdfc16d51e"
+		"localtime"		"1422058744"
+		"time"		"1422058744"
+		"remotetime"		"1422058744"
+		"sha"		"cd423cc943d6ed23b0b81e9570658d7a6e74b075"
 		"syncstate"		"1"
 		"persiststate"		"0"
 		"platformstosync2"		"-1"
@@ -34,6 +34,18 @@
 		"sha"		"085baa26f6e75014c4e89298d1fbd2002442468e"
 		"syncstate"		"1"
 		"persiststate"		"0"
+		"platformstosync2"		"-1"
+	}
+	"gamestate1.dat"
+	{
+		"root"		"0"
+		"size"		"379279"
+		"localtime"		"1422058489"
+		"time"		"1422058489"
+		"remotetime"		"1421804079"
+		"sha"		"8891c37355d9465d7632953e22eafb3139a65713"
+		"syncstate"		"1"
+		"persiststate"		"2"
 		"platformstosync2"		"-1"
 	}
 }
